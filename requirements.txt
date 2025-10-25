@@ -1,0 +1,17 @@
+fastapi>=0.115
+uvicorn[standard]>=0.30
+pydantic>=2.9
+pydantic-settings>=2.6
+numpy>=1.26
+requests>=2.32
+python-dotenv>=1.0
+pandas>=2.2
+matplotlib>=3.8
+pypdf>=4.0
+sentence-transformers>=3.0
+chromadb>=0.5
+langchain>=0.2
+langchain-community>=0.2
+langchain-huggingface>=0.1.0
+text-generation>=0.7.0
+langchain-xai>=0.1.0
