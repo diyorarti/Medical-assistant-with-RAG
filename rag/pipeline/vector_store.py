@@ -65,10 +65,8 @@ class VectorStore:
             # Normalize/alias a few helpful fields
             src = meta.get("source_file") or meta.get("source")
             if src:
-                src_abs = str(Path(meta.get("source") or meta.get("source_file","")).resolve())
-                meta["source"] = src_abs
-                meta["source_file"] = Path(src_abs).name
-                meta["source_name"] = Path(src_abs).stem
+                meta["source_file"] = str(Path(src).resolve())
+                meta["source_name"] = Path(meta["source_file"]).name
 
             meta["doc_index"] = i
             meta["content_length"] = len(getattr(doc, "page_content", "") or "")

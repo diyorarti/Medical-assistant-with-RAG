@@ -42,5 +42,9 @@ class Settings(BaseSettings):
     COLLECTION_NAME:str = "pdf_documents"
     PERSIST_DIRECTORY_VS:Path = PROJECT_ROOT / "data" / "vector_store"
 
+    # retriever configs
+    TOP_K:int=5
+    SCORE_THRESHOLD:float=0.35
+
 
 settings = Settings()

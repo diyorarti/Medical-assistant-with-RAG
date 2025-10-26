@@ -56,8 +56,8 @@ def load_data(
             page = meta.get("page")
             meta.update({
                 "source":str(abs_path),
-                "source_file":abs_path.name,
-                "source_name":abs_path.stem,
+                "source_file":str(abs_path),
+                "source_name":abs_path.name,
                 "file_type":"pdf",
                 "file_sha256":file_hash,
                 "file_mtime":mtime,

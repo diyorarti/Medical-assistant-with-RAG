@@ -1,0 +1,20 @@
+{
+  "entries": [
+    {
+      "path": "D:\\Users\\User\\Medical-assistant-with-RAG\\data\\Aging_natural_or_disease.pdf",
+      "sha256": "f700a35f9fd7ef679f1c72a53b46a46adad1c2273dad8c7d40aeb97c543bb921",
+      "mtime": 1761438253
+    },
+    {
+      "path": "D:\\Users\\User\\Medical-assistant-with-RAG\\data\\Genes_and_Disease.pdf",
+      "sha256": "e95304353dff7d4034e1ea164f283201570934a7a7eab805fe6dfeb59049e142",
+      "mtime": 1761438253
+    },
+    {
+      "path": "D:\\Users\\User\\Medical-assistant-with-RAG\\data\\basic_epidemiology.pdf",
+      "sha256": "935c39f28378b5e2006b0fb5ace6d3b0165379a1bedbc1a9079ef7ccc11b7b9c",
+      "mtime": 1761438253
+    }
+  ],
+  "digest": "62948062f903af2b30cafcfb7b152a4504836eefb3c495f6fc0ef604cd8f0755"
+}
