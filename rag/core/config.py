@@ -19,4 +19,19 @@ class Settings(BaseSettings):
     DATA_DIR:Path=PROJECT_ROOT / "data"
     MIN_CHARS:int=30
 
+    #chunker func configs
+    #chunking
+    CHUNK_SIZE:int=1000
+    CHUNK_OVERLAP:int=120
+    MIN_CHUNK_CHARS:int=80
+    # tokenization
+    TIKTOKEN_ENCODING:str="cl100k_base"
+    USE_TIKTOKEN: bool = True
+    #stabel chunk-id 
+    CHUNK_ID_PREFIX_LEN: int = 12
+    #splitter behavior
+    CHUNK_SEPARATORS: list[str] = ["\n\n", "\n", " ", ""]
+    KEEP_SEPARATOR: bool = False
+
+
 settings = Settings()
