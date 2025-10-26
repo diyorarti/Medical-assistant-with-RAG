@@ -1,12 +1,17 @@
 from __future__ import annotations
 from pathlib import Path
-from typing import List
+from typing import List, Union, Optional
 from langchain_community.document_loaders import PyPDFLoader
 from langchain_core.documents import Document
 
 from rag.utility.helpers import sha256_file
+from rag.core.config import settings
 
-def load_data(data_dir:str, min_chars: int = 30) -> List[Document]:
+def load_data(
+        data_dir: Union[str, Path, None] = None,
+        min_chars: Optional[int] = None,
+    ) -> List[Document]:
+
     """
     Recursively load PDFs under `data_dir` and return page-level documents
     enriched with stable file metadata (absolute path, source path, mtime, sha256)
@@ -15,6 +20,10 @@ def load_data(data_dir:str, min_chars: int = 30) -> List[Document]:
         data_dir:Root directory to scan for PDFs
         min_chars:Minimum non-whitespace charaters to keep a page
     """
+
+    data_dir = Path(data_dir) if data_dir is not None else settings.DATA_DIR
+    min_chars = int(min_chars) if min_chars is not None else settings.MIN_CHARS
+
     data_dir = Path(data_dir)
     files = list(data_dir.glob("**/*.pdf"))
     print(f"Number of files {len(files)}")
@@ -47,8 +56,8 @@ def load_data(data_dir:str, min_chars: int = 30) -> List[Document]:
             page = meta.get("page")
             meta.update({
                 "source":str(abs_path),
-                "source_file":str(abs_path),
-                "source_name":abs_path.name,
+                "source_file":abs_path.name,
+                "source_name":abs_path.stem,
                 "file_type":"pdf",
                 "file_sha256":file_hash,
                 "file_mtime":mtime,

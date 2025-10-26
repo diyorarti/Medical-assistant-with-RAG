@@ -17,5 +17,6 @@ class Settings(BaseSettings):
 
     # data loader configs 
     DATA_DIR:Path=PROJECT_ROOT / "data"
+    MIN_CHARS:int=30
 
 settings = Settings()
