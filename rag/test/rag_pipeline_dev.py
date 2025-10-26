@@ -6,10 +6,13 @@ import numpy as np
 from typing import Dict, Any, List
 
 from rag.core.config import settings, PROJECT_ROOT
+
 from rag.utility.helpers import sha256_file
 from rag.pipeline.data_loader import load_data
 from rag.pipeline.chunker import chunk_document
 from rag.utility.helpers import extract_text_and_metas
+from rag.pipeline.grok_rag_pipeline import RAG_Simple_Grok
+
 from rag.pipeline.embedder import Embedder
 from rag.pipeline.vector_store import VectorStore
 from rag.pipeline.retriever import Retriever
@@ -104,7 +107,12 @@ vs.add_documents(chunks, embeddings)
 
 # 6) Quick retrieval test (optional)
 retriever = Retriever(vector_store=vs, embedding_manager=Embedder())
-hits = retriever.retrieve("What is an anti-aging intervention?", top_k=5)
+query = "What is an anti-aging intervention?"
+hits = retriever.retrieve(query)
 for h in hits:
     m = h["metadata"]
     print(f"{h['similarity_score']:.3f} | page {m.get('page')} | {m.get('source_name')}")
+
+# 7) GROK LLM output generation
+answer = RAG_Simple_Grok("What is an anti-aging intervention?", retriever)
+print("\nFinal Answer:\n", answer)

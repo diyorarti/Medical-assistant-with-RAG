@@ -1,5 +1,6 @@
 from __future__ import annotations
 from pathlib import Path
+import os
 from pydantic_settings import BaseSettings, SettingsConfigDict
 from dotenv import load_dotenv
 load_dotenv()
@@ -45,6 +46,15 @@ class Settings(BaseSettings):
     # retriever configs
     TOP_K:int=5
     SCORE_THRESHOLD:float=0.35
+
+    #GROK LLM configs
+    GROK_API_KEY: str | None = os.getenv("GROK_API_KEY")
+    GROK_MODEL: str = "grok-4" 
+    GROK_TEMPERATURE:float=0.1
+    GROK_MAX_TOKENS:int=512
+
+    #GROK LLM Pipeline
+    MAX_CTX_CHARS:int= 8000
 
 
 settings = Settings()
