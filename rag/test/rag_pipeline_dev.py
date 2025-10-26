@@ -12,6 +12,7 @@ from rag.pipeline.data_loader import load_data
 from rag.pipeline.chunker import chunk_document
 from rag.utility.helpers import extract_text_and_metas
 from rag.pipeline.grok_rag_pipeline import RAG_Simple_Grok
+from rag.pipeline.hf_rag_pipeline import RAG_Simple_HF
 
 from rag.pipeline.embedder import Embedder
 from rag.pipeline.vector_store import VectorStore
@@ -114,5 +115,9 @@ for h in hits:
     print(f"{h['similarity_score']:.3f} | page {m.get('page')} | {m.get('source_name')}")
 
 # 7) GROK LLM output generation
-answer = RAG_Simple_Grok("What is an anti-aging intervention?", retriever)
-print("\nFinal Answer:\n", answer)
+# answer = RAG_Simple_Grok("What is an anti-aging intervention?", retriever)
+# print("\nFinal Answer:\n", answer)
+
+# 7) HF Endpoint output generation
+answer = RAG_Simple_HF(query, retriever=retriever)
+print(f"\n FINAL ANSWER {answer}")

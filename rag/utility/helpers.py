@@ -83,3 +83,21 @@ def make_vector_id(meta:dict) -> str:
     page = meta.get("page", "na")
     chunk_id = meta.get("chunk_id", "")
     return f"{file_hash}:{page}:{chunk_id}"
+
+
+def format_context(results: List[Dict[str, Any]], max_ctx_chars: int) -> str:
+    """
+    Build a context string from retriever results, supporting either
+    {'content', 'similarity_score'} or {'text', 'score'} shapes.
+    Adds cite markers [i] per chunk and caps length.
+    """
+    parts = []
+    for i, r in enumerate(results, start=1):
+        text = r.get("content")
+        if text is None:
+            text = r.get("text", "")
+        if not text:
+            continue
+        parts.append(f"[{i}] {text}")
+    ctx = "\n\n".join(parts)
+    return ctx[:max_ctx_chars]
