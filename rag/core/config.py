@@ -38,6 +38,9 @@ class Settings(BaseSettings):
     NORMALIZE:bool=True
     BATCH_SIZE:int=64
 
+    # Vector Store configs
+    COLLECTION_NAME:str = "pdf_documents"
+    PERSIST_DIRECTORY_VS:Path = PROJECT_ROOT / "data" / "vector_store"
 
 
 settings = Settings()

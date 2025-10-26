@@ -4,6 +4,7 @@ from rag.pipeline.chunker import chunk_document
 from rag.utility.helpers import extract_text_and_metas, make_vector_id
 
 from rag.pipeline.embedder import Embedder
+from rag.pipeline.vector_store import VectorStore
 
 
 
@@ -23,3 +24,7 @@ assert len(ids) == len(set(ids))
 # 4. Embedd
 embedder = Embedder()
 embeddings = embedder.generate_embeddings(texts)
+
+# addding embedding to VECTOR Stor
+vs = VectorStore()
+vs.add_documents(chunks, embeddings)
