@@ -33,5 +33,11 @@ class Settings(BaseSettings):
     CHUNK_SEPARATORS: list[str] = ["\n\n", "\n", " ", ""]
     KEEP_SEPARATOR: bool = False
 
+    #embedder class configs
+    EMBEDDER_MODEL_NAME: str = "sentence-transformers/all-MiniLM-L6-v2"
+    NORMALIZE:bool=True
+    BATCH_SIZE:int=64
+
+
 
 settings = Settings()

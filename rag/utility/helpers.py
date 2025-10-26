@@ -1,5 +1,7 @@
 import hashlib
 from pathlib import Path
+from typing import Iterable, Tuple, List, Dict, Any
+from langchain_core.documents import Document
 
 import re
 
@@ -65,3 +67,19 @@ def get_chunk_id(encoding_name:str="cl100k_base", id_prefix_len:int=16):
         base = f"{source_abs}|{page}|{chunk_idx}|{norm_text}"
         return hashlib.sha256(base.encode("utf-8")).hexdigest()[:id_prefix_len]
     return chunk_id, tok_len, using_tokenizer
+
+def extract_text_and_metas(chunks: Iterable[Document]) -> Tuple[List[str], List[Dict[str, Any]]]:
+    """Extract plain text and metadata from LangChain Document chunks."""
+    texts, metas = [], []
+    for ch in chunks:
+        meta = dict(ch.metadata or {})
+        texts.append(ch.page_content or "")
+        metas.append(meta)
+    return texts, metas
+
+def make_vector_id(meta:dict) -> str:
+    """Create a stable, unique vector ID for each chunk based on its metadata."""
+    file_hash = meta.get("file_sha256", "nohash")
+    page = meta.get("page", "na")
+    chunk_id = meta.get("chunk_id", "")
+    return f"{file_hash}:{page}:{chunk_id}"
