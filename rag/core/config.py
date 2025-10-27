@@ -56,12 +56,13 @@ class Settings(BaseSettings):
     MAX_CTX_CHARS:int= 8000
 
     # HF Endpoint configs
-    HF_TOKEN: str | None = os.getenv("HF_TOKEN")
-    HF_ENDPOINT_URL: str ="https://u8hxw751s4q6eqhs.eu-west-1.aws.endpoints.huggingface.cloud"
+    HF_TOKEN: str = os.getenv("HF_TOKEN")
+    HF_ENDPOINT_URL: str = "https://u8hxw751s4q6eqhs.eu-west-1.aws.endpoints.huggingface.cloud"
     HF_MAX_TOKENS:int=512
     HF_TEMPERATURE:float=0.1
     HF_RETURN_FULL_TEXT:bool=False
     GUARD_SENTENCE:str = "I don't know from the provided documents."
+    TASK:str="text-generation"
 
 
 settings = Settings()

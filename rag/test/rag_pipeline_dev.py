@@ -118,6 +118,6 @@ for h in hits:
 # answer = RAG_Simple_Grok("What is an anti-aging intervention?", retriever)
 # print("\nFinal Answer:\n", answer)
 
-# 7) HF Endpoint output generation
+# # 7) HF Endpoint output generation
 answer = RAG_Simple_HF(query, retriever=retriever)
 print(f"\n FINAL ANSWER {answer}")
