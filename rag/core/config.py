@@ -64,5 +64,8 @@ class Settings(BaseSettings):
     GUARD_SENTENCE:str = "I don't know from the provided documents."
     TASK:str="text-generation"
 
+    # api configs
+    API_KEY:str| None = os.getenv("API_KEY")
+
 
 settings = Settings()

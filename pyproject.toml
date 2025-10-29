@@ -27,7 +27,8 @@ dependencies = [
   "langchain-community>=0.2",
   "langchain-huggingface>=0.1.0",
   "text-generation>=0.7.0",
-  "langchain-xai>=0.1.0"
+  "langchain-xai>=0.1.0",
+  "python-multipart>=0.0.20"
 ]
 
 [project.optional-dependencies]
