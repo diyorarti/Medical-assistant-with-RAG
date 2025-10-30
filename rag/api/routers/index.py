@@ -1,15 +1,16 @@
-from fastapi import APIRouter, Query, HTTPException
+from fastapi import APIRouter, Query, HTTPException, Depends
 
 from pathlib import Path
 
 from rag.api.schemas.models import IndexResponse
 from rag.core.config import settings
+from rag.core.security import verify_api_key
 from rag.api.services.indexing import build_index
 
 
 router = APIRouter(prefix="/v1")
 
-@router.post("/index", response_model=IndexResponse)
+@router.post("/index", response_model=IndexResponse, dependencies=[Depends(verify_api_key)])
 def index_corpus(data_dir:str | None = Query(default=None, description="Optional override for data dir")):
     """
     (Re)-indexing PDFs undex settings.DATA_DIR (or a provided directory).

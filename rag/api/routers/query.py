@@ -1,13 +1,14 @@
 from __future__ import annotations
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Depends
 
 from rag.api.schemas.models import QueryResponse, QueryRequest
 from rag.core.config import settings 
 from rag.api.services.retrieval import run_rag_query, citations_from_results
+from rag.core.security import verify_api_key
 
 router = APIRouter(prefix="/v1")
 
-@router.post("/query", response_model=QueryResponse)
+@router.post("/query", response_model=QueryResponse, dependencies=[Depends(verify_api_key)])
 def query_rag(req:QueryRequest):
     """
     Ask any question related to Knowledge base

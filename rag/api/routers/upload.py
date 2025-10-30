@@ -1,16 +1,18 @@
 from __future__ import annotations
 
-from fastapi import APIRouter, UploadFile, File, HTTPException
+from fastapi import APIRouter, UploadFile, File, HTTPException, Depends
 from typing import List
 from pathlib import Path
 
 from rag.api.schemas.models import UploadResponse
 from rag.core.config import settings
+from rag.core.security import verify_api_key
 from rag.api.services.indexing import build_index
+
 
 router = APIRouter(prefix="/v1")
 
-@router.post("/upload", response_model=UploadResponse)
+@router.post("/upload", response_model=UploadResponse, dependencies=[Depends(verify_api_key)])
 async def upload_and_index(files:List[UploadFile]=File(...)):
     """
     Upload extra knowledge bases (pdf files), save them under data/uploads folder.
