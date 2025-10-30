@@ -44,7 +44,7 @@ class Settings(BaseSettings):
     PERSIST_DIRECTORY_VS:Path = PROJECT_ROOT / "data" / "vector_store"
 
     # retriever configs
-    TOP_K:int=5
+    TOP_K:int=3
     SCORE_THRESHOLD:float=0.35
 
     #GROK LLM configs
