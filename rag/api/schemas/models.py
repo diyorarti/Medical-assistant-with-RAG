@@ -6,3 +6,7 @@ class StatsResponse(BaseModel):
     collecion:str
     count:Optional[int]=None
 
+class IndexResponse(BaseModel):
+    added:int
+    total_in_collection:Optional[int] = None
+    message:str
