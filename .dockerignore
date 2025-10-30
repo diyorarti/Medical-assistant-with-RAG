@@ -1,0 +1,31 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.sqlite
+*.log
+
+# Git
+.git
+.gitignore
+
+# OS/editor
+.DS_Store
+.vscode/
+.idea/
+
+# Caches
+.cache/
+.venv/
+venv/
+.envrc
+
+# Data & local artifacts (we will mount /app/data as a volume instead)
+data/vector_store/*
+data/cache/*
+!data/.gitkeep
+
+# Build
+dist/
+build/
