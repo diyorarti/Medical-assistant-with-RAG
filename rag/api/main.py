@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from rag.api.routers import health, stats, index
+from rag.api.routers import health, stats, index, upload
 
 def create_app():
     # app initialization
@@ -20,6 +20,7 @@ def create_app():
     app.include_router(health.router)
     app.include_router(stats.router)
     app.include_router(index.router)
+    app.include_router(upload.router)
 
     return app
 
