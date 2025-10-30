@@ -44,7 +44,7 @@ def run_rag_query(
             score_threshold=score_threshold,
             max_ctx_chars=max_ctx_chars
         )
-        use="hf"
+        used="hf"
     
     return answer, results, used
 

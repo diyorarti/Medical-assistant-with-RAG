@@ -37,3 +37,8 @@ class QueryResponse(BaseModel):
     answer: str 
     citations:List[Citation] = []
     used_provider:Literal["hf", "grok"]
+
+class DeleteResponse(BaseModel):
+    deleted_source:str
+    message: str
+
