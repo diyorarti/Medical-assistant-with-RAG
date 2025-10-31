@@ -12,14 +12,7 @@
 ---
 
 ## ✨ Features
-
-- **Production Ready RAG API** (FastAPI) with routes to 
-      1.  **health**                                                                                                                           
-      2.  **index**                                                                                                                            
-      3.  **query**                                                                                                                            
-      4.  **upload**                                                                                                                           
-      5.  **delete**                                                                                                                           
-      6.  **stats**                                                                                                                          
+- **Production Ready RAG API** (FastAPI) with routes to 1. health 2. index 3. query 4. upload 5. delete 6.stats                   
 - **Deterministic chunk IDs** and **stable metadata** for robust incremental indexing & deduplication.
 - **Configurable chunking** (RecursiveCharacterTextSplitter + optional tiktoken length) with normalization/cleaning of PDF text.
 - **Sentence-Transformers embeddings** (`all-MiniLM-L6-v2`) with optional normalization and batch encoding.
