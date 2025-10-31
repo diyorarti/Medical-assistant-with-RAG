@@ -156,3 +156,71 @@ docker run --rm -it `
   -v "${PWD}/hf-cache:/root/.cache/huggingface" `
   --name medrag medrag-api:latest
 ```
+
+
+## 📁 Project Structure
+```bash
+medical-assistant-with-rag/
+│
+├── .vscode/ # VSCode workspace settings
+├── data/ # Knowledge base and vector store
+│ ├── cache/ # Cache of chunks and embeddings
+│ │ ├── chunks.pkl
+│ │ ├── embeddings.npy
+│ │ └── manifest.json
+│ ├── uploads/ # Uploaded PDFs for knowledge ingestion
+│ │ └── 1706.03762v7.pdf
+│ └── vector_store/ # ChromaDB persistence
+│ ├── chroma.sqlite3
+│ ├── Aging_natural_or_disease.pdf
+│ ├── Genes_and_Disease.pdf
+│ └── basic_epidemiology.pdf
+│
+├── hf-cache/ # Local Hugging Face model cache
+│
+├── labs/ # Research notebooks and experiments
+│ ├── project-lab.ipynb
+│ └── requirements.txt
+│
+├── rag/ # Core application package
+│ ├── api/ # FastAPI endpoints, routers, and services
+│ │ ├── routers/
+│ │ ├── schemas/
+│ │ ├── services/
+│ │ ├── main.py # FastAPI entry point
+│ │ └── init.py
+│ │
+│ ├── core/ # App configuration and security
+│ │ ├── config.py # Loads environment variables
+│ │ ├── security.py # API key verification
+│ │ └── init.py
+│ │
+│ ├── pipeline/ # RAG pipeline components
+│ │ ├── LLM/ # Large Language Model interfaces
+│ │ ├── chunker.py # Text chunking logic
+│ │ ├── data_loader.py # PDF loader and parser
+│ │ ├── embedder.py # Embedding generation
+│ │ ├── retriever.py # Retrieves relevant chunks from vector store
+│ │ ├── vector_store.py # Handles ChromaDB operations
+│ │ ├── hf_rag_pipeline.py # RAG pipeline using Hugging Face models
+│ │ ├── grok_rag_pipeline.py # Optional RAG pipeline using Grok
+│ │ └── init.py
+│ │
+│ ├── test/ # Unit & dev-level tests
+│ │ ├── rag_pipeline_dev.py
+│ │ └── init.py
+│ │
+│ ├── utility/ # Helper utilities
+│ │ ├── helpers.py # Text normalization, hashing, etc.
+│ │ └── init.py
+│ │
+│ └── init.py
+│
+├── .dockerignore
+├── .gitignore
+├── .env # Environment variables (not for Git)
+├── Dockerfile # Docker setup
+├── LICENSE
+├── pyproject.toml # Project dependencies and metadata
+└── README.md # Project documentation
+```
