@@ -90,21 +90,65 @@
 
 
 ```
+**Modules**
+- `rag/api/` – FastAPI app, routers, schemas, and service layers.
+- `rag/core/` – configuration (`.env`, defaults) and API-key security.
+- `rag/pipeline/` – data loader, chunker, embedder, retriever, vector store, and provider-specific RAG pipelines.
+- `rag/utility/` – hashing, normalization, ID generation, and context formatting.
+- `data/` – PDFs, vector store persistence, and optional caches.
+- `labs/` – notebooks & lab `requirements.txt` for experiments.
+- `rag/test/` – development pipeline with caching demo.
 
+---
 
+## ⚙️ Installation
 
+### 🧩 Prerequisites
+Before starting, make sure you have:
 
+- **Python 3.10 or higher**
+- **Git**
+- **pip / venv** or **conda**
+- *(optional)* **Docker 24+** if you prefer containerized deployment
 
+---
 
-
-
-
-
-
-
-
-Docker file runinning
+### 🗂️ Clone the Repository
 ```bash
+git clone https://github.com/<your-username>/medical-assistant-with-rag.git
+cd medical-assistant-with-rag
+
+```bash
+# Create venv
+python -m venv .venv
+
+# Activate (Linux/Mac)
+source .venv/bin/activate
+
+# Activate (Windows)
+.venv\Scripts\activate
+
+```
+Install all packages defined in labs/requirements.txt or pyproject.toml.
+```bash
+if labs/requirements
+
+pip install -r labs/requirements.txt
+
+else 
+pip install e .
+```
+
+running project locally
+```bash
+uvicorn rag.api.main:app --reload
+```
+🐳 2. Run with Docker
+
+```bash
+# buiding docker image
+docker build -t medical-assistant-rag .
+# running image
 docker run --rm -it `
   --env-file .env `
   -p 8000:8000 `
