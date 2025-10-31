@@ -14,16 +14,16 @@
 ## ✨ Features
 
 - **Production Ready RAG API** (FastAPI) with routes to 
-      1.  **health** 
-      2.  **index** 
-      3.  **query** 
-      4.  **upload** 
-      5.  **delete** 
-      6.  **stats**
+      1.  **health**                                                                                                                           
+      2.  **index**                                                                                                                            
+      3.  **query**                                                                                                                            
+      4.  **upload**                                                                                                                           
+      5.  **delete**                                                                                                                           
+      6.  **stats**                                                                                                                          
 - **Deterministic chunk IDs** and **stable metadata** for robust incremental indexing & deduplication.
 - **Configurable chunking** (RecursiveCharacterTextSplitter + optional tiktoken length) with normalization/cleaning of PDF text.
 - **Sentence-Transformers embeddings** (`all-MiniLM-L6-v2`) with optional normalization and batch encoding.
-- **Persistent Vector Store** via **ChromaDB** (HNSW cosine) under `data/vector_store/`.
+- **Persistent Vector Store** via **ChromaDB** under `data/vector_store/`.
 - **Two LLM providers**:
   - **Hugging Face Inference Endpoint** (default) via `langchain-huggingface`
   - **xAI Grok** via `langchain-xai` (optional)
@@ -65,6 +65,7 @@
 | LLM Providers | HF-Endpoint, GROK |
 | EMbedding-Model | sentence-transformers/all-MiniLM-L6-v2 |
 | Vector DataBase | ChromabDB |
+| Document Processing | Lanchain-> PyPDFLoader, RecursiveCharacterTextSplitter
 | Containerization | Docker |
 | Deployment | Render |
 
