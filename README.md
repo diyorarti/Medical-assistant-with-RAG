@@ -108,64 +108,6 @@
 
 ---
 
-## ⚙️ Installation
-
-### 🧩 Prerequisites
-Before starting, make sure you have:
-
-- **Python 3.10 or higher**
-- **pip / venv** or **conda**
-- *(optional)* **Docker 24+** if you prefer containerized deployment
-
----
-
-### 🗂️ Clone the Repository
-```bash
-git clone https://github.com/diyorarti/Medical-assistant-with-RAG.git
-cd Medical-assistant-with-RAG
-
-```bash
-# Create venv
-python -m venv .venv
-# Activate (Linux/Mac)
-source .venv/bin/activate
-# Activate (Windows)
-.venv\Scripts\activate
-# installing packages
-pip install -e .
-```
-or if Anaconda installed
-```bash
-# creating new virtual environment
-conda create -n evnName python=3.10 -y
-# activating created env
-conda activate evnName
-# installing packages
-pip install -e .
-```
-
-### running project locally
-```bash
-uvicorn rag.api.main:app --reload
-```
-# ☁️ Deployment
-
-🐳 2. Building and Run  Docker image
-
-```bash
-# buiding docker image
-docker build -t medical-assistant-rag .
-
-# running image
-docker run --rm -it `
-  --env-file .env `
-  -p 8000:8000 `
-  -v "${PWD}/data:/app/data" `
-  -v "${PWD}/hf-cache:/root/.cache/huggingface" `
-  --name medrag medrag-api:latest
-```
-
-
 ## 📁 Project Structure
 ```bash
 medical-assistant-with-rag/
@@ -226,8 +168,52 @@ medical-assistant-with-rag/
 └── README.md # Project documentation
 ```
 
-## 💻 Usage & Examples
 
+## ⚙️ Installation
+
+### 🧩 Prerequisites
+Before starting, make sure you have:
+
+- **Python 3.10 or higher**
+- **pip / venv** or **conda**
+- *(optional)* **Docker 24+** if you prefer containerized deployment
+
+---
+
+### 🗂️ Clone the Repository
+```bash
+git clone https://github.com/diyorarti/Medical-assistant-with-RAG.git
+cd Medical-assistant-with-RAG
+
+```bash
+# Create venv
+python -m venv .venv
+# Activate (Linux/Mac)
+source .venv/bin/activate
+# Activate (Windows)
+.venv\Scripts\activate
+# installing packages
+pip install -e .
+```
+or if Anaconda installed
+```bash
+# creating new virtual environment
+conda create -n evnName python=3.10 -y
+# activating created env
+conda activate evnName
+# installing packages
+pip install -e .
+```
+
+### running project locally
+```bash
+uvicorn rag.api.main:app --reload
+```
+then Visit
+➡️ Swagger UI: `http://127.0.0.1:8000/docs`
+➡️ Healthcheck: `http://127.0.0.1:8000/health`
+
+## 💻 Usage & Examples
 You can use the **Medical Assistant with RAG** in two ways:
 
 1. **Through the REST API** (recommended for most users)
@@ -249,14 +235,64 @@ There, you can test all endpoints interactively.
 curl -X POST "http://127.0.0.1:8000/v1/upload" \
      -H "X-API-Key: your_api_key_here" \
      -F "file=@data/uploads/Aging_natural_or_disease.pdf"
+```
 
+### 🧠 2. Using the Python API
+```bash
+from rag.pipeline.hf_rag_pipeline import RAG_Simple_HF
+from rag.pipeline.retriever import Retriever
+from rag.pipeline.vector_store import VectorStore
+from rag.pipeline.embedder import Embedder
 
+embedder = Embedder()
+vs = VectorStore()
+retriever = Retriever(vs, embedder)
 
-✅ Next Step (Step 5): **Deployment Section**
-We’ll cover:
-- Docker deployment
-- Railway/AWS/Render example
-- Environment variable configuration
-- Healthcheck and production notes
+answer = RAG_Simple_HF("What causes neural degeneration?", retriever=retriever)
+print(answer)
 
-Would you like me to proceed with the **Deployment section** next?
+```
+
+## ☁️ Deployment
+### 🐳 2. Building and Run  Docker image
+```bash
+# buiding docker image
+docker build -t medical-assistant-rag .
+# running image
+docker run --rm -it `
+  --env-file .env `
+  -p 8000:8000 `
+  -v "${PWD}/data:/app/data" `
+  -v "${PWD}/hf-cache:/root/.cache/huggingface" `
+  --name medrag medrag-api:latest
+```
+then Visit:
+➡️ Swagger UI: `http://127.0.0.1:8000/docs`
+➡️ Healthcheck: `http://127.0.0.1:8000/health`
+
+### 🚀 Deploy on Railway
+
+1. Push your repo to GitHub.
+2. Create a new project on Railway
+3. Add environment variables in project settings.
+4. Click Deploy.
+5. Access your API from the live URL (e.g., https://medical-assistant.up.railway.app).
+
+### 🔐 Production Tips
+
+Keep .env secrets private.
+Use strong API_KEY.
+Mount persistent volume for /data to retain embeddings.
+Regularly back up data/vector_store.
+
+### 📄 License
+MIT License
+
+### 🙏 Acknowledgements
+
+[LangChain](https://www.langchain.com/)
+SentenceTransformers
+ChromaDB
+FastAPI
+Hugging Face
+xAI (Grok)
