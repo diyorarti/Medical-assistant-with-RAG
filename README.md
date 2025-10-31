@@ -1,11 +1,11 @@
 # Medical Assistant with RAG
 
-> An AI-powered medical assistant that answers med-related questions using **Retrieval-Augmented Generation (RAG)** over your curated PDF knowledge base.
+> A LLM(s)-powered medical assistant that answers med-related questions using **Retrieval-Augmented Generation (RAG)** over your curated PDF knowledge base.
 
 [![Built with FastAPI](https://img.shields.io/badge/FastAPI-0.115+-green)](https://fastapi.tiangolo.com/)
 [![ChromaDB](https://img.shields.io/badge/Vector%20Store-ChromaDB-blue)](https://www.trychroma.com/)
 [![SentenceTransformers](https://img.shields.io/badge/Embeddings-all--MiniLM--L6--v2-purple)](https://www.sbert.net/)
-[![HF Endpoint](https://img.shields.io/badge/HF--Endpoint-diyorarti%2Fmed--mixed--merged--qbi-yellow?logo=huggingface&logoColor=white)](https://github.com/diyorarti/medical-assistant)
+[![HF Endpoint](https://img.shields.io/badge/HF--Endpoint-diyorarti%2Fmed--mixed--merged--qbi-yellow?logo=huggingface&logoColor=white)](https://huggingface.co/diyorarti/med-mixed-merged)
 [![Dockerized](https://img.shields.io/badge/Docker-ready-informational)](https://www.docker.com/)
 [![License](https://img.shields.io/badge/license-See%20LICENSE-lightgray)](#-license)
 
@@ -13,7 +13,13 @@
 
 ## ✨ Features
 
-- **End-to-end RAG API** (FastAPI) with routes to **index**, **query**, **upload**, **delete**, and **inspect stats**.
+- **Production Ready RAG API** (FastAPI) with routes to 
+      1.  **health** 
+      2.  **index** 
+      3.  **query** 
+      4.  **upload** 
+      5.  **delete** 
+      6.  **stats**
 - **Deterministic chunk IDs** and **stable metadata** for robust incremental indexing & deduplication.
 - **Configurable chunking** (RecursiveCharacterTextSplitter + optional tiktoken length) with normalization/cleaning of PDF text.
 - **Sentence-Transformers embeddings** (`all-MiniLM-L6-v2`) with optional normalization and batch encoding.
