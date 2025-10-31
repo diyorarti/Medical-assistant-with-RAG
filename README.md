@@ -114,7 +114,6 @@
 Before starting, make sure you have:
 
 - **Python 3.10 or higher**
-- **Git**
 - **pip / venv** or **conda**
 - *(optional)* **Docker 24+** if you prefer containerized deployment
 
@@ -145,26 +144,18 @@ conda activate evnName
 pip install -e .
 ```
 
-```
-Install all packages defined in labs/requirements.txt or pyproject.toml.
-```bash
-if labs/requirements
-
-pip install -r labs/requirements.txt
-
-else 
-pip install e .
-```
-
-running project locally
+### running project locally
 ```bash
 uvicorn rag.api.main:app --reload
 ```
-🐳 2. Run with Docker
+# ☁️ Deployment
+
+🐳 2. Building and Run  Docker image
 
 ```bash
 # buiding docker image
 docker build -t medical-assistant-rag .
+
 # running image
 docker run --rm -it `
   --env-file .env `
@@ -185,32 +176,30 @@ medical-assistant-with-rag/
 │ │ ├── chunks.pkl
 │ │ ├── embeddings.npy
 │ │ └── manifest.json
-│ ├── uploads/ # Uploaded PDFs for knowledge ingestion
+│ ├── uploads/ # User Uploaded PDFs for knowledge base
 │ │ └── 1706.03762v7.pdf
 │ └── vector_store/ # ChromaDB persistence
 │ ├── chroma.sqlite3
-│ ├── Aging_natural_or_disease.pdf
-│ ├── Genes_and_Disease.pdf
-│ └── basic_epidemiology.pdf
+│ ├── Aging_natural_or_disease.pdf # RAG-dev-knowledge base
+│ ├── Genes_and_Disease.pdf # RAG-dev-knowledge base
+│ └── basic_epidemiology.pdf # RAG-dev-knowledge base
 │
 ├── hf-cache/ # Local Hugging Face model cache
 │
 ├── labs/ # Research notebooks and experiments
-│ ├── project-lab.ipynb
-│ └── requirements.txt
+│ ├── project-lab.ipynb # RAG development lab
+│ └── requirements.txt # packages used in LAB experiment
 │
 ├── rag/ # Core application package
 │ ├── api/ # FastAPI endpoints, routers, and services
 │ │ ├── routers/
 │ │ ├── schemas/
 │ │ ├── services/
-│ │ ├── main.py # FastAPI entry point
-│ │ └── init.py
+│ │ └── main.py # FastAPI entry point
 │ │
 │ ├── core/ # App configuration and security
 │ │ ├── config.py # Loads environment variables
-│ │ ├── security.py # API key verification
-│ │ └── init.py
+│ │ └── security.py # API key verification
 │ │
 │ ├── pipeline/ # RAG pipeline components
 │ │ ├── LLM/ # Large Language Model interfaces
@@ -220,18 +209,13 @@ medical-assistant-with-rag/
 │ │ ├── retriever.py # Retrieves relevant chunks from vector store
 │ │ ├── vector_store.py # Handles ChromaDB operations
 │ │ ├── hf_rag_pipeline.py # RAG pipeline using Hugging Face models
-│ │ ├── grok_rag_pipeline.py # Optional RAG pipeline using Grok
-│ │ └── init.py
+│ │ └── grok_rag_pipeline.py # Optional RAG pipeline using Grok
 │ │
 │ ├── test/ # Unit & dev-level tests
-│ │ ├── rag_pipeline_dev.py
-│ │ └── init.py
+│ │ └── rag_pipeline_dev.py
 │ │
-│ ├── utility/ # Helper utilities
-│ │ ├── helpers.py # Text normalization, hashing, etc.
-│ │ └── init.py
-│ │
-│ └── init.py
+│ └── utility/ # Helper utilities
+│   └── helpers.py # Text normalization, hashing, etc. 
 │
 ├── .dockerignore
 ├── .gitignore
