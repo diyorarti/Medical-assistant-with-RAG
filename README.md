@@ -291,8 +291,9 @@ MIT License
 ### 🙏 Acknowledgements
 
 [LangChain](https://www.langchain.com/)
-SentenceTransformers
-ChromaDB
-FastAPI
-Hugging Face
-xAI (Grok)
+[SentenceTransformers](https://www.sbert.net/)
+[ChromaDB](https://www.trychroma.com/)
+[FastAPI](https://fastapi.tiangolo.com/)
+[Hugging Face](https://huggingface.co/)
+[HF-Endpoint(LLM)](https://huggingface.co/diyorarti/med-mixed-merged)
+[GROK(LLM)](https://x.ai/)
