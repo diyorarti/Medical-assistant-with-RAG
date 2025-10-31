@@ -27,7 +27,7 @@
 - **Two LLM providers**:
   - **Hugging Face Inference Endpoint** (default) via `langchain-huggingface`
   - **xAI Grok** via `langchain-xai` (optional)
-- **Secure by default**: all write/query endpoints require `X-API-Key` header.
+- **Secure by default**: all (except health and stats) endpoints require `X-API-Key` header.
 - **Docker-ready** image with healthcheck and `uvicorn` entrypoint.
 - **Utilities & Labs**: caching demo (`data/cache`) and a development pipeline script under `rag/test/`.
 
@@ -41,8 +41,8 @@
   - HF Endpoint (task: `text-generation`) – configurable via `.env`
   - Grok (`grok-4`) – optional, requires `GROK_API_KEY`
 - **Embeddings:** `sentence-transformers/all-MiniLM-L6-v2` (configurable)
-- **Persistence:** ChromaDB at `data/vector_store/` (collection: `pdf_documents`)
-- **Data sources:** PDFs under `data/` (including `data/uploads/` for user uploads)
+- **Persistence:** ChromaDB at `data/vector_store/` (collection-name: `pdf_documents`)
+- **Data sources:** PDFs (used to build RAG) under `data/` (users upload PDFs are stored `data/uploads/`)
 - **Security:** `X-API-Key` checked by dependency (`rag.core.security.verify_api_key`)
 - **API Prefix:** `/v1`
 - **Key Routes:** 
@@ -59,19 +59,20 @@
 
 ```bash
              ┌─────────────────────────────┐
-   PDFs ---> │ data/         data/uploads/ │
-  (knowledge)└───────────────┬─────────────┘
-                             │  load_data()
+   PDFs -->  │ data/ (RAD-dev-pdfs)        │
+             │ data/uploads (user-uploaded)│ 
+             └───────────────┬─────────────┘
+                             │  load_data() - (langchain_community.document_loaders -> PyPDFLoader)
                              ▼
                       ┌───────────────┐
-                      │  CHUNKER      │  ← cleans & splits PDF text
+                      │  CHUNKER      │  ← cleans & splits PDF text (langchain -> RecursiveCharacterTextSplitter)
                       │ (Recursive)   │     (helpers.normalize_text)
                       └───────┬───────┘
                               │  texts + metadata
                               ▼
                       ┌───────────────┐
-                      │  EMBEDDER     │  ← SentenceTransformers
-                      │ (MiniLM etc.) │     (batch, normalized)
+                      │  EMBEDDER     │  ← SentenceTransformers ("all-MiniLM-L6-v2" model )
+                      │               │     (batch, normalized)
                       └───────┬───────┘
                               │  vectors + metadata (deterministic IDs)
                               ▼
@@ -82,26 +83,28 @@
                               ▲
                        retrieve(top_k, threshold)
                               │
-                      ┌───────┴────────┐
+                      ┌───────┴─────────┐
                       │   FastAPI       │
-                      │   Routers       │
-                      │  /v1/index      │  (build index from PDFs)
-                      │  /v1/upload     │  (upload PDFs + index)
-   client question -> │  /v1/query  ----┼─► LLM Providers (LangChain):
-                      │  /v1/delete     │      • HF Endpoint (default)
-                      │  /health, /stats│      • Grok (optional)
+                      │   Routers:      │
+                      │  /v1/index      │   (build index from default PDFs)
+                      │  /v1/upload     │   (upload PDFs + index)
+   client question -> │  /v1/query -----│─► (LLM Providers: • HF Endpoint(default) (GROK optional))
+                      │  /v1/delete     │   (Delete the indexed source)
+                      │  /health        │   
+                      │  /stats         │      
                       └─────────────────┘
-
-
 ```
 **Modules**
-- `rag/api/` – FastAPI app, routers, schemas, and service layers.
-- `rag/core/` – configuration (`.env`, defaults) and API-key security.
-- `rag/pipeline/` – data loader, chunker, embedder, retriever, vector store, and provider-specific RAG pipelines.
-- `rag/utility/` – hashing, normalization, ID generation, and context formatting.
-- `data/` – PDFs, vector store persistence, and optional caches.
-- `labs/` – notebooks & lab `requirements.txt` for experiments.
+- `rag/api/` – FastAPI app, routers, schemas, service layers.
+- `rag/core/` – configuration (config) API-key security.
+- `rag/pipeline/` – data-loader, chunker, embedder, retriever, vector-store,RAG pipelines(HF and GROK).
+- `rag/pipeline/LLM` - grok-llm, hf-endpoint.
+- `rag/utility/helpers.py` – hashing, normalization,getting-chunk-id,text and meta extraftor ,ID generation, context formatting.
 - `rag/test/` – development pipeline with caching demo.
+- `data/` – PDFs, vector store persistence.
+- `data/uploads/` - user uploaded pdfs.
+- `data/cache` - chunks.pkl, embeddings.npy
+- `labs/` – development notebooks & lab `project-lab.ipynb` and  `requirements.txt`.
 
 ---
 
@@ -119,18 +122,28 @@ Before starting, make sure you have:
 
 ### 🗂️ Clone the Repository
 ```bash
-git clone https://github.com/<your-username>/medical-assistant-with-rag.git
-cd medical-assistant-with-rag
+git clone https://github.com/diyorarti/Medical-assistant-with-RAG.git
+cd Medical-assistant-with-RAG
 
 ```bash
 # Create venv
 python -m venv .venv
-
 # Activate (Linux/Mac)
 source .venv/bin/activate
-
 # Activate (Windows)
 .venv\Scripts\activate
+# installing packages
+pip install -e .
+```
+or if Anaconda installed
+```bash
+# creating new virtual environment
+conda create -n evnName python=3.10 -y
+# activating created env
+conda activate evnName
+# installing packages
+pip install -e .
+```
 
 ```
 Install all packages defined in labs/requirements.txt or pyproject.toml.
