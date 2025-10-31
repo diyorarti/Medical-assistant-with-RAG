@@ -55,6 +55,22 @@
 
 ---
 
+## 🧩 Tech Stack
+
+| Area | Tools / Libraries |
+|------|--------------------|
+| Programming Language | Python |
+| Framework | FastAPI |
+| RAG pipeline Compnents | Langchain, SentenceTransformers, ChromaDB |
+| LLM Providers | HF-Endpoint, GROK |
+| EMbedding-Model | sentence-transformers/all-MiniLM-L6-v2 |
+| Vector DataBase | ChromabDB |
+| Containerization | Docker |
+| Deployment | Render |
+
+---
+
+
 ## 🧱 Architecture (High Level)
 
 ```bash
