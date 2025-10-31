@@ -1,13 +1,11 @@
-# RAG-API
-
-
 # Medical Assistant with RAG
 
-> An AI-powered medical assistant that answers health-related questions using **Retrieval-Augmented Generation (RAG)** over your curated PDF knowledge base.
+> An AI-powered medical assistant that answers med-related questions using **Retrieval-Augmented Generation (RAG)** over your curated PDF knowledge base.
 
 [![Built with FastAPI](https://img.shields.io/badge/FastAPI-0.115+-green)](https://fastapi.tiangolo.com/)
 [![ChromaDB](https://img.shields.io/badge/Vector%20Store-ChromaDB-blue)](https://www.trychroma.com/)
 [![SentenceTransformers](https://img.shields.io/badge/Embeddings-all--MiniLM--L6--v2-purple)](https://www.sbert.net/)
+[![HF Endpoint](https://img.shields.io/badge/HF--Endpoint-diyorarti%2Fmed--mixed--merged--qbi-yellow?logo=huggingface&logoColor=white)]
 [![Dockerized](https://img.shields.io/badge/Docker-ready-informational)](https://www.docker.com/)
 [![License](https://img.shields.io/badge/license-See%20LICENSE-lightgray)](#-license)
 
@@ -224,3 +222,38 @@ medical-assistant-with-rag/
 ├── pyproject.toml # Project dependencies and metadata
 └── README.md # Project documentation
 ```
+
+## 💻 Usage & Examples
+
+You can use the **Medical Assistant with RAG** in two ways:
+
+1. **Through the REST API** (recommended for most users)
+2. **As a Python module** (for developers building custom pipelines)
+---
+
+### 🌐 1. Using the API
+
+Once the FastAPI app is running (`uvicorn rag.api.main:app --reload`), open:
+
+➡️ **Swagger UI:** [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)
+
+There, you can test all endpoints interactively.
+
+#### Example — Upload & Query via API
+
+**Upload a PDF**
+```bash
+curl -X POST "http://127.0.0.1:8000/v1/upload" \
+     -H "X-API-Key: your_api_key_here" \
+     -F "file=@data/uploads/Aging_natural_or_disease.pdf"
+
+
+
+✅ Next Step (Step 5): **Deployment Section**
+We’ll cover:
+- Docker deployment
+- Railway/AWS/Render example
+- Environment variable configuration
+- Healthcheck and production notes
+
+Would you like me to proceed with the **Deployment section** next?
