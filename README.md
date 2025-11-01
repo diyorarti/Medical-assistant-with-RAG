@@ -281,6 +281,9 @@ then Visit:
 ### 🚀 Deploy
 Project deployed on [Render](https://medical-assistant-with-rag.onrender.com/docs)
 
+## 📸 Screenshot
+
+
 ### 📄 License
 MIT License
 
