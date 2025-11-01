@@ -12,14 +12,14 @@
 ---
 
 ## ✨ Features
-- [**Production Ready RAG API** (FastAPI)](https://medical-assistant-with-rag.onrender.com/docs) with routes to 1. health 2. index 3. query 4. upload 5. delete 6.stats                   
+- [**Production Ready RAG API** (FastAPI)](https://medical-assistant-with-rag.onrender.com/docs)                  
 - **Deterministic chunk IDs** and **stable metadata** for robust incremental indexing & deduplication.
 - **Configurable chunking** (RecursiveCharacterTextSplitter + optional tiktoken length) with normalization/cleaning of PDF text.
 - **Sentence-Transformers embeddings** (`all-MiniLM-L6-v2`) with optional normalization and batch encoding.
 - **Persistent Vector Store** via **ChromaDB** under `data/vector_store/`.
 - **Two LLM providers**:
-  - **Hugging Face Inference Endpoint** (default) via `langchain-huggingface`
-  - **xAI Grok** via `langchain-xai` (optional)
+  - [**Hugging Face Inference Endpoint**](https://huggingface.co/diyorarti/med-mixed-merged) deployed in HF inference endpoints (default LLM)
+  - **xAI Grok** (optional)
 - **Secure by default**: all (except health and stats) endpoints require `X-API-Key` header.
 - **Docker-ready** image with healthcheck and `uvicorn` entrypoint.
 - **Utilities & Labs**: caching demo (`data/cache`) and a development pipeline script under `rag/test/`.
@@ -28,7 +28,6 @@
 
 ## 🧭 Project Overview
 
-- **Status:** MVP / research-ready (version `0.1.0`)
 - **Language/Stack:** Python 3.11, FastAPI, LangChain, SentenceTransformers, ChromaDB
 - **LLMs:**
   - HF Endpoint (task: `text-generation`) – configurable via `.env`
@@ -219,9 +218,9 @@ pip install -e .
 ```bash
 uvicorn rag.api.main:app --reload
 ```
+## 📘 Swagger Documentation:
 then Visit
 ➡️ Swagger UI: `http://127.0.0.1:8000/docs`
-➡️ Healthcheck: `http://127.0.0.1:8000/health`
 
 ## 💻 Usage & Examples
 You can use the **Medical Assistant with RAG** in two ways:
@@ -234,7 +233,7 @@ You can use the **Medical Assistant with RAG** in two ways:
 
 Once the FastAPI app is running (`uvicorn rag.api.main:app --reload`), open:
 
-➡️ **Swagger UI:** [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)
+➡️ [**Swagger UI:**](http://127.0.0.1:8000/docs) 
 
 There, you can test all endpoints interactively.
 
@@ -278,22 +277,9 @@ docker run --rm -it `
 ```
 then Visit:
 ➡️ Swagger UI: `http://127.0.0.1:8000/docs`
-➡️ Healthcheck: `http://127.0.0.1:8000/health`
 
-### 🚀 Deploy on Railway
-
-1. Push your repo to GitHub.
-2. Create a new project on Railway
-3. Add environment variables in project settings.
-4. Click Deploy.
-5. Access your API from the live URL (e.g., https://medical-assistant.up.railway.app).
-
-### 🔐 Production Tips
-
-Keep .env secrets private.
-Use strong API_KEY.
-Mount persistent volume for /data to retain embeddings.
-Regularly back up data/vector_store.
+### 🚀 Deploy
+Project deployed on [Render](https://medical-assistant-with-rag.onrender.com/docs)
 
 ### 📄 License
 MIT License
@@ -305,5 +291,6 @@ MIT License
 [ChromaDB](https://www.trychroma.com/)                                
 [FastAPI](https://fastapi.tiangolo.com/)                                                  
 [Hugging Face](https://huggingface.co/)                                                 
-[HF-Endpoint(LLM)](https://huggingface.co/diyorarti/med-mixed-merged)                                                 
+[HF-Endpoint(LLM)](https://huggingface.co/diyorarti/med-mixed-merged)
+[Med-assistant-with-RAG-API](https://medical-assistant-with-rag.onrender.com/docs)                                               
 [GROK(LLM)](https://x.ai/)                                                  
