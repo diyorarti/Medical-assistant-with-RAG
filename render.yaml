@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: medical-llm-with-RAG-api
+    env: docker
+    plan: starter   
+    region: frankfurt 
+    autoDeploy: true
+    healthCheckPath: /health
+    envVars:
+      - key: HF_API_TOKEN
+        sync: false   
+      - key: API_KEY
+        sync: false
+      - key: GROK_API_KEY
+        sync: false
