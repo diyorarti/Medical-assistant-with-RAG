@@ -2,12 +2,20 @@
 
 FROM python:3.11-slim AS base
 
+# ENV PYTHONDONTWRITEBYTECODE=1 \
+#     PYTHONUNBUFFERED=1 \
+#     PIP_DISABLE_PIP_VERSION_CHECK=on \
+#     PIP_NO_CACHE_DIR=1 \
+#     HF_HOME=/root/.cache/huggingface \
+#     TRANSFORMERS_CACHE=/root/.cache/huggingface/transformers
+
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
     PIP_DISABLE_PIP_VERSION_CHECK=on \
     PIP_NO_CACHE_DIR=1 \
     HF_HOME=/root/.cache/huggingface \
-    TRANSFORMERS_CACHE=/root/.cache/huggingface/transformers
+    HUGGINGFACE_HUB_CACHE=/root/.cache/huggingface/hub
+
 
 # Install basic system packages
 RUN apt-get update && apt-get install -y --no-install-recommends \
