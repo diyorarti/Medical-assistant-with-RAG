@@ -18,6 +18,10 @@ def create_app():
         allow_headers=["*"],
     )
 
+    @app.get("/")
+    def root():
+        return {"ok": True, "docs": "/docs"}
+    
     # routers
     app.include_router(health.router)
     app.include_router(stats.router)
@@ -25,10 +29,6 @@ def create_app():
     app.include_router(upload.router)
     app.include_router(query.router)
     app.include_router(delete.router)
-
-    @app.get("/")
-    def root():
-        return {"ok": True, "docs": "/docs"}
 
     # ✅ Register as startup hook so it runs on every boot
     @app.on_event("startup")
