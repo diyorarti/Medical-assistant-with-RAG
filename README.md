@@ -282,8 +282,13 @@ then Visit:
 Project deployed on [Render](https://medical-assistant-with-rag.onrender.com/docs)
 
 ## 📸 Screenshot
-
-
+![Swagger UI Screenshot](assets/api.png)
+![Swagger UI Screenshot](assets/stats-endpoint.png)
+![Swagger UI Screenshot](assets/index-endpoint.png)
+![Swagger UI Screenshot](assets/upload-ednpoint.png)
+![Swagger UI Screenshot](assets/query-endpoint.png)
+![Swagger UI Screenshot](assets/delete-endpoint.png)
+![Swagger UI Screenshot](assets/debug-endpoint.png)
 ### 📄 License
 MIT License
 
