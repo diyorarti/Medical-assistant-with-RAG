@@ -37,7 +37,7 @@ class Settings(BaseSettings):
     #embedder class configs
     EMBEDDER_MODEL_NAME: str = "sentence-transformers/all-MiniLM-L6-v2"
     NORMALIZE:bool=True
-    BATCH_SIZE:int=64
+    BATCH_SIZE:int=16
 
     # Vector Store configs
     COLLECTION_NAME:str = "pdf_documents"

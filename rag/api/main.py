@@ -23,11 +23,7 @@ def create_app():
     app.include_router(query.router)
     app.include_router(delete.router)
 
-    @app.on_event("startup")
-    def _warm():
-        # load SentenceTransformer + Chroma once so requests are fast
-        from rag.api.services.components import ensure_components
-        ensure_components()
+    
 
     return app
 
