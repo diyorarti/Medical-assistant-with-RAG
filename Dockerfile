@@ -27,6 +27,7 @@ WORKDIR /app
 # Copy only dependency files first for layer caching
 COPY pyproject.toml /app/
 COPY README.md /app/
+COPY data /app/data
 
 # Optional: install build tools (setuptools, wheel)
 RUN pip install --no-cache-dir setuptools wheel
