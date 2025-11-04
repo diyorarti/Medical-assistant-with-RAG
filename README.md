@@ -331,6 +331,8 @@ Go to Settings → Environment → Add Environment Variable
 
 | Key |	Value |
 |------|--------------------|
+| HF_TOKEN | HuggingFace access token |
+| GROK_API_KEY | XAI api key |
 | DATA_DIR |	/app/storage |
 | PERSIST_DIRECTORY_VS |	/app/storage/vector_store |
 | HF_HOME |	/app/storage/hf-cache |
