@@ -1,6 +1,6 @@
 # Medical Assistant with RAG
 
-> A [Med-assistant LLM](https://github.com/diyorarti/Medical-assistant) powered with RAG **Retrieval-Augmented Generation** that answers med-related questions using over your curated PDF knowledge base and defaut [PDFs](https://github.com/diyorarti/Medical-assistant-with-RAG/blob/main/labs/project-lab.ipynb).
+>[Med-assistant LLM](https://github.com/diyorarti/Medical-assistant) powered with RAG **Retrieval-Augmented Generation** that answers med-related questions using over your curated PDF knowledge base and defaut [PDFs](https://github.com/diyorarti/Medical-assistant-with-RAG/blob/main/labs/project-lab.ipynb).
 
 [![Built with FastAPI](https://img.shields.io/badge/FastAPI-0.115+-green)](https://fastapi.tiangolo.com/)
 [![ChromaDB](https://img.shields.io/badge/Vector%20Store-ChromaDB-blue)](https://www.trychroma.com/)
@@ -37,7 +37,7 @@
 - **Data sources:** PDFs (used to build RAG) under `data/` (users upload PDFs are stored `data/uploads/`)
 - **Security:** `X-API-Key` checked by dependency (`rag.core.security.verify_api_key`)
 - **API Prefix:** `/v1`
-- **Key Routes:** 
+- **Key Routes:**
   - `GET /health` – service health & active collection
   - `GET /v1/stats` – collection size
   - `POST /v1/index` – (re)index PDFs from `data/` (or a provided directory)
@@ -278,12 +278,14 @@ docker run --rm -it `
 then Visit:
 ➡️ Swagger UI: `http://127.0.0.1:8000/docs`
 
-### 🚀 Deploy
+### 🚀 Deploy 
 Project deployed on [Render](https://medical-assistant-with-rag.onrender.com/docs)
+Note: Once I deployed the project on Render successfully,then I stopped the paid subscription version of Render due to finiancial reasons, now it does not work, because min 2+ Ram and 5+ memory are required to run this project.
 
 ## 📸 Screenshot
  ### ALL APIs
 ![Swagger UI Screenshot](assets/api.png)
+when I got the picture, the debug endpoint was running, then I removed it . 
 ---
 ### stats endpoint
 ![Swagger UI Screenshot](assets/stats-endpoint.png)
@@ -300,9 +302,41 @@ Project deployed on [Render](https://medical-assistant-with-rag.onrender.com/doc
 ### delete endpoint 
 ![Swagger UI Screenshot](assets/delete-endpoint.png)
 ---
-### debug endpoint 
-![Swagger UI Screenshot](assets/debug-endpoint.png)
----
+
+## Deployment steps on Render
+### 1. Clone the repo: 
+```bash
+git clone https://github.com/diyorarti/Medical-assistant-with-RAG.git
+```
+### 2. Create a new Web Service on Render:
+Go to https://render.com
+Click “New +” → “Web Service”
+Connect your GitHub repo
+Select your repo → click Connect
+### 3. Render build settings:
+Environment ->	Docker
+Region	Closest to you
+Instance Type	✅ Standard (2 GB RAM) (avoid free tier for embeddings)
+### 4. Attach a Persistent Disk
+In the service → Settings → Disks → Add Disk
+Name: storage
+Mount Path: /app/storage
+Size: e.g. 5 GB
+This disk stores:
+PDFs (DATA_DIR)
+Vector store (Chroma/FAISS)
+Hugging Face cache
+### 5. Add environment variables
+Go to Settings → Environment → Add Environment Variable
+
+|Key |	Value |
+|DATA_DIR |	/app/storage |
+|PERSIST_DIRECTORY_VS |	/app/storage/vector_store |
+|HF_HOME |	/app/storage/hf-cache |
+|HUGGINGFACE_HUB_CACHE |	/app/storage/hf-cache |
+|API_KEY |	(your secret key — used in verify_api_key) |
+
+
 ### 📄 License
 MIT License
 

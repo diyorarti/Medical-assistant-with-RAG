@@ -21,11 +21,6 @@ __pycache__/
 venv/
 .envrc
 
-# Data & local artifacts (we will mount /app/data as a volume instead)
-data/vector_store/*
-data/cache/*
-!data/.gitkeep
-
 # Build
 dist/
 build/
