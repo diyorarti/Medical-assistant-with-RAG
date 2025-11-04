@@ -329,13 +329,13 @@ Hugging Face cache
 ### 5. Add environment variables
 Go to Settings → Environment → Add Environment Variable
 
-|Key |	Value |
-|DATA_DIR |	/app/storage |
-|PERSIST_DIRECTORY_VS |	/app/storage/vector_store |
-|HF_HOME |	/app/storage/hf-cache |
-|HUGGINGFACE_HUB_CACHE |	/app/storage/hf-cache |
-|API_KEY |	(your secret key — used in verify_api_key) |
-
+| Key |	Value |
+|------|--------------------|
+| DATA_DIR |	/app/storage |
+| PERSIST_DIRECTORY_VS |	/app/storage/vector_store |
+| HF_HOME |	/app/storage/hf-cache |
+| HUGGINGFACE_HUB_CACHE |	/app/storage/hf-cache |
+| API_KEY |	(your secret key — used in verify_api_key) |
 
 ### 📄 License
 MIT License
