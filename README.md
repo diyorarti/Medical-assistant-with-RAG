@@ -308,6 +308,7 @@ when I got the picture, the debug endpoint was running, then I removed it .
 ```bash
 git clone https://github.com/diyorarti/Medical-assistant-with-RAG.git
 ```
+then push the Repo to your GitHub
 ### 2. Create a new Web Service on Render:
 Go to https://render.com
 Click “New +” → “Web Service”
