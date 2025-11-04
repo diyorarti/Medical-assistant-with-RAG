@@ -1,6 +1,6 @@
 # Medical Assistant with RAG
 
-> A Med-assistant LLM powered with RAG **Retrieval-Augmented Generation (RAG)** that answers med-related questions using over your curated PDF knowledge base.
+> A [Med-assistant LLM](https://github.com/diyorarti/Medical-assistant) powered with RAG **Retrieval-Augmented Generation** that answers med-related questions using over your curated PDF knowledge base and defaut [PDFs](https://github.com/diyorarti/Medical-assistant-with-RAG/blob/main/labs/project-lab.ipynb).
 
 [![Built with FastAPI](https://img.shields.io/badge/FastAPI-0.115+-green)](https://fastapi.tiangolo.com/)
 [![ChromaDB](https://img.shields.io/badge/Vector%20Store-ChromaDB-blue)](https://www.trychroma.com/)
@@ -20,7 +20,7 @@
 - **Two LLM providers**:
   - [**Hugging Face Inference Endpoint**](https://huggingface.co/diyorarti/med-mixed-merged) deployed in HF inference endpoints (default LLM)
   - **xAI Grok** (optional)
-- **Secure by default**: all (except health and stats) endpoints require `X-API-Key` header.
+- **Secure by default**: endpoints (index, upload, query and delete) require `X-API-Key` header.
 - **Docker-ready** image with healthcheck and `uvicorn` entrypoint.
 - **Utilities & Labs**: caching demo (`data/cache`) and a development pipeline script under `rag/test/`.
 
