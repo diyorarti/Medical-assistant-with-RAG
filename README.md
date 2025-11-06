@@ -205,33 +205,27 @@ docker run --rm -it `
 ### 🚀 Deploy on Render
 Project deployed on [Render](https://medical-assistant-with-rag.onrender.com/docs)
 Note: Once I deployed the project on Render successfully,then I stopped the paid subscription version of Render due to finiancial reasons, now it does not work, because min 2+ Ram and 5+ memory are required to run this project.
-
-### 1. Clone the repo: 
-```bash
-git clone https://github.com/diyorarti/Medical-assistant-with-RAG.git
-```
-then push the Repo to your GitHub
-### 2. Create a new Web Service on Render:
+### ⚙️ Steps to Deploy on Render
+**1. Create a new Web Service on Render:**
 Go to https://render.com
 Click “New +” → “Web Service”
 Connect your GitHub repo
 Select your repo → click Connect
-### 3. Render build settings:
+**2. Render build settings:**
 Environment ->	Docker
 Region	Closest to you
 Instance Type	✅ Standard (2 GB RAM) (avoid free tier for embeddings)
-### 4. Attach a Persistent Disk
+**3. Attach a Persistent Disk**
 In the service → Settings → Disks → Add Disk
 Name: storage
 Mount Path: /app/storage
-Size: e.g. 5 GB
+Size: e.g. min 5 GB
 This disk stores:
 PDFs (DATA_DIR)
-Vector store (Chroma/FAISS)
+Vector store (Chroma)
 Hugging Face cache
-### 5. Add environment variables
+**4. Add environment variables**
 Go to Settings → Environment → Add Environment Variable
-
 | Key |	Value |
 |------|--------------------|
 | HF_TOKEN | HuggingFace access token |
