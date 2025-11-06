@@ -238,7 +238,7 @@ Go to Settings → Environment → Add Environment Variable
 | HUGGINGFACE_HUB_CACHE |	/app/storage/hf-cache |
 | API_KEY |	(your secret key — used in verify_api_key) |
 
-🔄 How the API Works
+## 🔄 How the API Works
 
 ## 📸 Screenshot
  ### ALL APIs
