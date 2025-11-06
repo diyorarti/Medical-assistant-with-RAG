@@ -10,40 +10,38 @@
 [![License](https://img.shields.io/badge/license-See%20LICENSE-lightgray)](#-license)
 
 ---
+## 📖 Table of Contents
+- [Features](#-features)
+- [Project Overview](#-project-overview)
+- [Tech Stack](#-tech-stack)
+- [Architecture](#-architecture-high-level)
+- [Project Structure](#-project-structure)
+- [Installation](#️-installation)
+- [Usage & Examples](#-usage--examples)
+- [Deployment](#️-deployment)
+- [Screenshots](#-screenshot)
+- [License & Acknowledgements](#-license)
 
+---
 ## ✨ Features
-- [**Production Ready RAG API** (FastAPI)](https://medical-assistant-with-rag.onrender.com/docs)                  
-- **Deterministic chunk IDs** and **stable metadata** for robust incremental indexing & deduplication.
-- **Configurable chunking** (RecursiveCharacterTextSplitter + optional tiktoken length) with normalization/cleaning of PDF text.
-- **Sentence-Transformers embeddings** (`all-MiniLM-L6-v2`) with optional normalization and batch encoding.
-- **Persistent Vector Store** via **ChromaDB** under `data/vector_store/`.
-- **Two LLM providers**:
-  - [**Hugging Face Inference Endpoint**](https://huggingface.co/diyorarti/med-mixed-merged) deployed in HF inference endpoints (default LLM)
-  - **xAI Grok** (optional)
-- **Secure by default**: endpoints (index, upload, query and delete) require `X-API-Key` header.
-- **Docker-ready** image with healthcheck and `uvicorn` entrypoint.
-- **Utilities & Labs**: caching demo (`data/cache`) and a development pipeline script under `rag/test/`.
 
+- **Context-Aware Q&A:** Retrieves relevant medical information from uploaded PDFs and default [knowledge base](https://github.com/diyorarti/Medical-assistant-with-RAG/blob/main/labs/project-lab.ipynb) before generating answers.  
+- **Retrieval-Augmented Generation (RAG):** Combines vector-based document search (ChromaDB) with an [Fine-tuned LLM](https://huggingface.co/diyorarti/med-mixed-merged) for accurate, reference-supported responses.  
+- **Multi-Source Document Support:** Handles multiple uploaded medical documents, automatically chunked and embedded for efficient retrieval.  
+- **Fast and Scalable API:** Built with FastAPI and Docker for seamless deployment and real-time interaction.  
+- **Custom Embedding Pipeline:** Uses SentenceTransformers (`all-MiniLM-L6-v2`) for precise vector representation of text.  
+- **Swagger UI Documentation:** Provides interactive API exploration for developers.  
 ---
 
 ## 🧭 Project Overview
 
-- **Language/Stack:** Python 3.11, FastAPI, LangChain, SentenceTransformers, ChromaDB
-- **LLMs:**
-  - HF Endpoint (task: `text-generation`) – configurable via `.env`
-  - Grok (`grok-4`) – optional, requires `GROK_API_KEY`
-- **Embeddings:** `sentence-transformers/all-MiniLM-L6-v2` (configurable)
-- **Persistence:** ChromaDB at `data/vector_store/` (collection-name: `pdf_documents`)
-- **Data sources:** PDFs (used to build RAG) under `data/` (users upload PDFs are stored `data/uploads/`)
-- **Security:** `X-API-Key` checked by dependency (`rag.core.security.verify_api_key`)
-- **API Prefix:** `/v1`
-- **Key Routes:**
-  - `GET /health` – service health & active collection
-  - `GET /v1/stats` – collection size
-  - `POST /v1/index` – (re)index PDFs from `data/` (or a provided directory)
-  - `POST /v1/upload` – upload **PDFs** then auto-index
-  - `POST /v1/query` – RAG question answering (provider: `hf` or `grok`)
-  - `DELETE /v1/delete` – remove vectors by source file path
+## 🩺 Project Overview
+
+In healthcare and medical research, professionals often face challenges in finding precise and trustworthy information buried within lengthy documents. Manual searching not only wastes time but increases the risk of overlooking critical insights.
+
+**Medical Assistant with RAG** provides an intelligent solution by combining *retrieval-augmented generation (RAG)* and *large language models (LLMs)*. Users can upload medical PDFs, ask natural-language questions, and receive accurate, context-rich answers grounded in the uploaded sources.
+
+Technically, the system uses **LangChain**, **ChromaDB**, and **SentenceTransformers (all-MiniLM-L6-v2)** for vector-based retrieval, and connects to **Hugging Face** or **Grok (xAI)** APIs for language generation. The backend is implemented with **FastAPI**, containerized with **Docker**, and deployed via **Render**, providing real-time, scalable access.
 
 ---
 
