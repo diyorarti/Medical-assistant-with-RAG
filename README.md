@@ -58,9 +58,9 @@ Technically, the system uses **LangChain**, **ChromaDB**, and **SentenceTransfor
 | **Deployment** | Render |
 ---
 
-
-## 🧱 Architecture (High Level)
-
+## 🧱 Architecture (High-Level)
+The project implements a Retrieval-Augmented Generation (RAG) pipeline that combines local document retrieval with remote LLM inference.  
+Below is the high-level data and control flow within the system:
 ```bash
              ┌─────────────────────────────┐
    PDFs -->  │ data/ (RAD-dev-pdfs)        │
@@ -92,38 +92,28 @@ Technically, the system uses **LangChain**, **ChromaDB**, and **SentenceTransfor
                       │   Routers:      │
                       │  /v1/index      │   (build index from default PDFs)
                       │  /v1/upload     │   (upload PDFs + index)
-   client question -> │  /v1/query -----│─► (LLM Providers: • HF Endpoint(default) (GROK optional))
+   client question -> │  /v1/query      │   (LLM Providers: • HF Endpoint(default) (GROK optional))
                       │  /v1/delete     │   (Delete the indexed source)
+                      |  /root          |
                       │  /health        │   
-                      │  /stats         │      
+                      │  /v1/stats      │  
+                      |  /v1/debug/ls   |     
                       └─────────────────┘
 ```
-**Modules**
-- `rag/api/` – FastAPI app, routers, schemas, service layers.
-- `rag/core/` – configuration (config) API-key security.
-- `rag/pipeline/` – data-loader, chunker, embedder, retriever, vector-store,RAG pipelines(HF and GROK).
-- `rag/pipeline/LLM` - grok-llm, hf-endpoint.
-- `rag/utility/helpers.py` – hashing, normalization,getting-chunk-id,text and meta extraftor ,ID generation, context formatting.
-- `rag/test/` – development pipeline with caching demo.
-- `data/` – PDFs, vector store persistence.
-- `data/uploads/` - user uploaded pdfs.
-- `data/cache` - chunks.pkl, embeddings.npy
-- `labs/` – development notebooks & lab `project-lab.ipynb` and  `requirements.txt`.
-
 ---
-
 ## 📁 Project Structure
 ```bash
 medical-assistant-with-rag/
 │
 ├── .vscode/ # VSCode workspace settings
+├── assets/ # project related pictures
 ├── data/ # Knowledge base and vector store
 │ ├── cache/ # Cache of chunks and embeddings
 │ │ ├── chunks.pkl
 │ │ ├── embeddings.npy
 │ │ └── manifest.json
 │ ├── uploads/ # User Uploaded PDFs for knowledge base
-│ │ └── 1706.03762v7.pdf
+│ │ └── 1706.03762v7.pdf # example of user uploaded file 
 │ └── vector_store/ # ChromaDB persistence
 │ ├── chroma.sqlite3
 │ ├── Aging_natural_or_disease.pdf # RAG-dev-knowledge base
@@ -176,86 +166,27 @@ medical-assistant-with-rag/
 ## ⚙️ Installation
 
 ### 🧩 Prerequisites
-Before starting, make sure you have:
+Before you begin, ensure you have the following installed:
 
-- **Python 3.10 or higher**
-- **pip / venv** or **conda**
-- *(optional)* **Docker 24+** if you prefer containerized deployment
+- **Python 3.10+**
+- **pip** or **conda** for package management
+- *(Optional)* **Docker 24+** if you prefer containerized deployment
 
 ---
 
 ### 🗂️ Clone the Repository
+
 ```bash
 git clone https://github.com/diyorarti/Medical-assistant-with-RAG.git
 cd Medical-assistant-with-RAG
-
-```bash
-# Create venv
-python -m venv .venv
-# Activate (Linux/Mac)
-source .venv/bin/activate
-# Activate (Windows)
-.venv\Scripts\activate
-# installing packages
-pip install -e .
-```
-or if Anaconda installed
-```bash
-# creating new virtual environment
-conda create -n evnName python=3.10 -y
-# activating created env
-conda activate evnName
-# installing packages
-pip install -e .
 ```
 
 ### running project locally
 ```bash
 uvicorn rag.api.main:app --reload
 ```
-## 📘 Swagger Documentation:
-then Visit
-➡️ Swagger UI: `http://127.0.0.1:8000/docs`
 
-## 💻 Usage & Examples
-You can use the **Medical Assistant with RAG** in two ways:
-
-1. **Through the REST API** (recommended for most users)
-2. **As a Python module** (for developers building custom pipelines)
----
-
-### 🌐 1. Using the API
-
-Once the FastAPI app is running (`uvicorn rag.api.main:app --reload`), open:
-
-➡️ [**Swagger UI:**](http://127.0.0.1:8000/docs) 
-
-There, you can test all endpoints interactively.
-
-#### Example — Upload & Query via API
-
-**Upload a PDF**
-```bash
-curl -X POST "http://127.0.0.1:8000/v1/upload" \
-     -H "X-API-Key: your_api_key_here" \
-     -F "file=@data/uploads/Aging_natural_or_disease.pdf"
-```
-
-### 🧠 2. Using the Python API
-```bash
-from rag.pipeline.hf_rag_pipeline import RAG_Simple_HF
-from rag.pipeline.retriever import Retriever
-from rag.pipeline.vector_store import VectorStore
-from rag.pipeline.embedder import Embedder
-
-embedder = Embedder()
-vs = VectorStore()
-retriever = Retriever(vs, embedder)
-
-answer = RAG_Simple_HF("What causes neural degeneration?", retriever=retriever)
-print(answer)
-
-```
+## 💻 Usage 
 
 ## ☁️ Deployment
 ### 🐳 2. Building and Run  Docker image
@@ -270,35 +201,11 @@ docker run --rm -it `
   -v "${PWD}/hf-cache:/root/.cache/huggingface" `
   --name medrag medrag-api:latest
 ```
-then Visit:
-➡️ Swagger UI: `http://127.0.0.1:8000/docs`
 
-### 🚀 Deploy 
+### 🚀 Deploy on Render
 Project deployed on [Render](https://medical-assistant-with-rag.onrender.com/docs)
 Note: Once I deployed the project on Render successfully,then I stopped the paid subscription version of Render due to finiancial reasons, now it does not work, because min 2+ Ram and 5+ memory are required to run this project.
 
-## 📸 Screenshot
- ### ALL APIs
-![Swagger UI Screenshot](assets/api.png)
-when I got the picture, the debug endpoint was running, then I removed it . 
----
-### stats endpoint
-![Swagger UI Screenshot](assets/stats-endpoint.png)
----
-### index endpoint
-![Swagger UI Screenshot](assets/index-endpoint.png)
----
-### upload endpoint 
-![Swagger UI Screenshot](assets/upload-ednpoint.png)
----
-### query endpoint 
-![Swagger UI Screenshot](assets/query-endpoint.png)
----
-### delete endpoint 
-![Swagger UI Screenshot](assets/delete-endpoint.png)
----
-
-## Deployment steps on Render
 ### 1. Clone the repo: 
 ```bash
 git clone https://github.com/diyorarti/Medical-assistant-with-RAG.git
@@ -334,6 +241,28 @@ Go to Settings → Environment → Add Environment Variable
 | HF_HOME |	/app/storage/hf-cache |
 | HUGGINGFACE_HUB_CACHE |	/app/storage/hf-cache |
 | API_KEY |	(your secret key — used in verify_api_key) |
+
+
+## 📸 Screenshot
+ ### ALL APIs
+![Swagger UI Screenshot](assets/api.png)
+when I got the picture, the debug endpoint was running, then I removed it . 
+---
+### stats endpoint
+![Swagger UI Screenshot](assets/stats-endpoint.png)
+---
+### index endpoint
+![Swagger UI Screenshot](assets/index-endpoint.png)
+---
+### upload endpoint 
+![Swagger UI Screenshot](assets/upload-ednpoint.png)
+---
+### query endpoint 
+![Swagger UI Screenshot](assets/query-endpoint.png)
+---
+### delete endpoint 
+![Swagger UI Screenshot](assets/delete-endpoint.png)
+---
 
 ### 📄 License
 MIT License
