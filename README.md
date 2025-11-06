@@ -17,8 +17,8 @@
 - [Architecture](#-architecture-high-level)
 - [Project Structure](#-project-structure)
 - [Installation](#️-installation)
-- [Usage & Examples](#-usage--examples)
 - [Deployment](#️-deployment)
+- [How the API Works](#-how-the-api-works)
 - [Screenshots](#-screenshot)
 - [License & Acknowledgements](#-license)
 
@@ -186,8 +186,6 @@ cd Medical-assistant-with-RAG
 uvicorn rag.api.main:app --reload
 ```
 
-## 💻 Usage 
-
 ## ☁️ Deployment
 ### 🐳 2. Building and Run  Docker image
 ```bash
@@ -240,6 +238,7 @@ Go to Settings → Environment → Add Environment Variable
 | HUGGINGFACE_HUB_CACHE |	/app/storage/hf-cache |
 | API_KEY |	(your secret key — used in verify_api_key) |
 
+🔄 How the API Works
 
 ## 📸 Screenshot
  ### ALL APIs
