@@ -33,8 +33,6 @@
 - **Swagger UI Documentation:** Provides interactive API exploration for developers.  
 ---
 
-## 🧭 Project Overview
-
 ## 🩺 Project Overview
 
 In healthcare and medical research, professionals often face challenges in finding precise and trustworthy information buried within lengthy documents. Manual searching not only wastes time but increases the risk of overlooking critical insights.
@@ -45,20 +43,19 @@ Technically, the system uses **LangChain**, **ChromaDB**, and **SentenceTransfor
 
 ---
 
-## 🧩 Tech Stack
+## ⚙️ Tech Stack
 
-| Area | Tools / Libraries |
-|------|--------------------|
-| Programming Language | Python |
-| Framework | FastAPI |
-| RAG pipeline Compnents | Langchain, SentenceTransformers, ChromaDB |
-| LLM Providers | HF-Endpoint, GROK |
-| EMbedding-Model | sentence-transformers/all-MiniLM-L6-v2 |
-| Vector DataBase | ChromabDB |
-| Document Processing | Lanchain-> PyPDFLoader, RecursiveCharacterTextSplitter
-| Containerization | Docker |
-| Deployment | Render |
-
+| Area | Technologies |
+|------|---------------|
+| **Programming Language** | Python |
+| **Framework** | FastAPI |
+| **RAG Components** | LangChain, SentenceTransformers, ChromaDB |
+| **Embedding Model** | all-MiniLM-L6-v2 |
+| **LLM Providers** | Hugging Face Endpoint, Grok(optional) |
+| **Vector Database** | ChromaDB |
+| **Document Processing** | PyPDFLoader, RecursiveCharacterTextSplitter |
+| **Containerization** | Docker |
+| **Deployment** | Render |
 ---
 
 
