@@ -207,15 +207,18 @@ Project deployed on [Render](https://medical-assistant-with-rag.onrender.com/doc
 Note: Once I deployed the project on Render successfully,then I stopped the paid subscription version of Render due to finiancial reasons, now it does not work, because min 2+ Ram and 5+ memory are required to run this project.
 ### ⚙️ Steps to Deploy on Render
 **1. Create a new Web Service on Render:**
+
 Go to https://render.com
 Click “New +” → “Web Service”
 Connect your GitHub repo
 Select your repo → click Connect
 **2. Render build settings:**
+
 Environment ->	Docker
 Region	Closest to you
 Instance Type	✅ Standard (2 GB RAM) (avoid free tier for embeddings)
 **3. Attach a Persistent Disk**
+
 In the service → Settings → Disks → Add Disk
 Name: storage
 Mount Path: /app/storage
@@ -225,6 +228,7 @@ PDFs (DATA_DIR)
 Vector store (Chroma)
 Hugging Face cache
 **4. Add environment variables**
+
 Go to Settings → Environment → Add Environment Variable
 | Key |	Value |
 |------|--------------------|
